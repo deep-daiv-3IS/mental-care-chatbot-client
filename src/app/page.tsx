@@ -3,10 +3,11 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import axios from 'axios';
+import { ChatBotIcon } from '@/components/ChatbotIcon';
 
 export default function Home() {
   const [inputText, setInputText] = useState('');
-  const [generatedText, setGeneratedText] = useState('');
+  const [generatedText, setGeneratedText] = useState<String[]>([]);
 
   const handleInputText = (e: any) => {
     setInputText(e.target.value);
@@ -35,11 +36,22 @@ export default function Home() {
   return (
     <Container>
       <Wrapper>
-        <Row>
+        <Row style={{ gap: '8px' }}>
           <InputBox placeholder='자신의 감정을 작성해보세요.' onChange={handleInputText} onKeyDown={handleKeyDown} />
           <SendButton onClick={onSubmitText}>전송</SendButton>
         </Row>
-        {generatedText && <h3>{generatedText}</h3>}
+        {generatedText ? (
+          <Row style={{ gap: '60px !important' }}>
+            <ChatBotIcon />
+            <Column>
+              {generatedText.slice(0, 5).map((text) => {
+                return <h3>{text}.</h3>;
+              })}
+            </Column>
+          </Row>
+        ) : (
+          <div></div>
+        )}
       </Wrapper>
     </Container>
   );
@@ -61,6 +73,7 @@ const Wrapper = styled.div`
   background-color: aliceblue;
   justify-content: center;
   align-items: center;
+  gap: 60px;
 `;
 
 const Row = styled.div`
@@ -69,7 +82,16 @@ const Row = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: -1000px;
+`;
+
+const Column = styled.div`
+  /* width: 100%; */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 `;
 
 const InputBox = styled.input`
