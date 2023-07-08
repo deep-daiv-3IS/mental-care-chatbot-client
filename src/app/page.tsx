@@ -44,7 +44,7 @@ export default function Home() {
           <Row style={{ gap: '60px !important' }}>
             <ChatBotIcon />
             <Column>
-              {generatedText.slice(0, 5).map((text) => {
+              {generatedText.slice(0, 3).map((text) => {
                 return <h3>{text}.</h3>;
               })}
             </Column>
@@ -82,7 +82,7 @@ const Row = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: -1000px;
+  /* gap: -1000px; */
 `;
 
 const Column = styled.div`
@@ -90,7 +90,7 @@ const Column = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: flex-start;
 `;
 
